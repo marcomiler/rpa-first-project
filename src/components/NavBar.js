@@ -1,6 +1,6 @@
 
 import React from 'react'
-import { Link, NavLink } from 'react-router-dom'; 
+import { NavLink } from 'react-router-dom'; 
 
 import '../assets/css/navBar.css'
 import Lupa from '../assets/images/lupa.svg'
@@ -19,9 +19,6 @@ export default function NavBar() {
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                             <li className="nav-item">
-                                <Link className="links" to="/"></Link>
-                            </li>
-                            <li className="nav-item">
                                 <NavLink className="links" exact to="/entertainment">ENTRETENIMIENTO</NavLink>
                             </li>
                             <li className="nav-item">
@@ -38,6 +35,10 @@ export default function NavBar() {
                             </li>
                             <li className="nav-item">
                             <NavLink className="links" exact to="/technology">TECNOLOGIA</NavLink>
+                            </li>
+
+                            <li className="nav-item">
+                            <NavLink className="links" exact to="/search">BUSCAR</NavLink>
                             </li>
                         </ul>
                         <button className="btn btn-light cerrar-sesion" >que tal</button>

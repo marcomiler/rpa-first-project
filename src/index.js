@@ -5,12 +5,9 @@ import "./assets/css/spinner.css";
 import "animate.css/animate.min.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-//import App from "./App";
-import AppRouter from "./routes/AppRouter";
+import { RpaApp } from "./RpaApp";
 
 ReactDOM.render(
-  <React.StrictMode>
-    <AppRouter/> 
-  </React.StrictMode>,
+    <RpaApp/>,
   document.getElementById("root")
 );

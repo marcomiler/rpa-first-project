@@ -1,89 +1,77 @@
-import Spinner from '../components/Spinner'
-import Mensaje from '../components/Mensaje'
+import Spinner from '../components/Spinner';
+import Mensaje from '../components/Mensaje';
+import "../assets/css/App.css";
 
 import React, { useState } from 'react'
 
-
-function Login({ handleLogged }) {
+function UseAuthLogin(handleLogged) {
 
     const [dataLogin, setDataLogin] = useState(
         {
-            // tienen que ser llamados igual que los names
-            // de los inputs
             emailLogin: "",
             passLogin: ""
         }
-    )
+    );
 
-    // En caso haya error
-    const [isError, setError] = useState(false)
+    const [isError, setError] = useState(false);
 
-    // Controlador de spinner
-    const [enableSpinner, setEnableSpinner] = useState(false)
+    const [enableSpinner, setEnableSpinner] = useState(false);
 
     const handleInput = (e) => {
 
-        //obteniendo los valores y nombres de los inputs 
         const { value, name } = e.target
 
         // esto servirá para capturar los valores de cada input
         setDataLogin({
             ...dataLogin,
             [name]: value
-        })
+        });
     }
 
     const handleSubmit = (e) => {
-        e.preventDefault()
+        e.preventDefault();
 
+        setEnableSpinner(true);
 
-        // activamos el spinner
-        setEnableSpinner(true)
+        const { emailLogin, passLogin } = dataLogin;
 
-        // obtener datos del dataLogin
-        const { emailLogin, passLogin } = dataLogin
-
-        // QUE BUSQUE EL OBJETO DEL WINDOW Y EJECUTE
-        // El rememberMe: es para que se haga una sesion persistente
         window.Identity.login(emailLogin, passLogin, { rememberMe: true })
             .then(res => {
-                console.log("todo correcto: ", res)
-
                 // en caso todo bien
-                setTimeout(() => {
+                //setTimeout(() => {
                     // desactivamos el spinner
-                    setEnableSpinner(false)
-                    handleLogged()
-                }, 3000)
+                    setEnableSpinner(false);
+                    handleLogged();
+                    console.log('aqui entra bien');
+                //}, 3000)
             })
             .catch(error => {
-                console.log("Algo ah pasado: ", error)
-                if (error.httpStatus === 401) {
-                    setTimeout(() => {
-                        // desactivamos el spinner
+                //console.log("Algo ha pasado: ", error)
+                //if (error.httpStatus === 401) {
+                    //setTimeout(() => {
                         setEnableSpinner(false)
 
-                        // muestra mensaje de error
                         setError(true)
-
+                        console.log('aqui es el error');
                         // desaparecer error
                         setTimeout(() => {
                             setError(false)
-                        }, 2000)
-                    }, 3000)
+                        }, 3000)
+                    //}, 3000)
                 }
-            })
+            );
     }
+
 
     return (
         <>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} >
                 <div className="form-group">
                     <div className="titulo-form">
-                        <h3>Login</h3>
+                        <h3>Iniciar Sesión</h3>
                     </div>
                 </div>
-                <div className="form-group">
+                <div className="form-group" >
                     <input className="form-control" type="email" name="emailLogin" placeholder="Ingresa Correo" minLength="2" required onChange={handleInput}></input>
                 </div>
                 <div className="form-group">
@@ -97,12 +85,10 @@ function Login({ handleLogged }) {
                 ) : (null)}
             </form>
             {
-                enableSpinner ? (<Spinner></Spinner>) : (null)
+                enableSpinner ? <Spinner></Spinner> : null
             }
         </>
     );
 }
 
-export default Login;
-
-
+export default UseAuthLogin;

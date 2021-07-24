@@ -1,12 +1,14 @@
 
-
 export const getNewsByCategory = async(category) => {
+
+    const API_KEY = process.env.REACT_APP_API_KEY;
+    const API_URL = process.env.REACT_APP_API_URL_CATEGORY;
 
     var url = '';
     if(category === null || category === ''){
-        url = 'https://newsapi.org/v2/top-headlines?country=us&apiKey=a456f85d87e34ec1a63cf9b132408f80';
+        url = `${API_URL}?country=us&apiKey=${API_KEY}`;
     }else{
-        url = `https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=a456f85d87e34ec1a63cf9b132408f80`;
+        url = `${API_URL}?country=us&category=${category}&apiKey=${API_KEY}`;
     }
     
     const resp = await fetch(url);
